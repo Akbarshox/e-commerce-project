@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, {useState} from "react";
 import './App.css';
+import MainLayout from "./components/Layout/MainLayout";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   const [state, setState] = useState(["todo1", "todo2", "todo3"]);
+   const [todo, setTodo] = useState('');
+
+   const handleChange = (e) => {
+      setTodo(e.target.value);
+   }
+   const handleSubmit = () => {
+      setState([...state, todo]);
+      setTodo('');
+   }
+
+   return (
+      <div className="App">
+         {state.map(el =>
+            <h2>{el}</h2>
+         )}
+         <input type="text" onChange={handleChange} placeholder={"add todo"} value={todo}/>
+         <button onClick={handleSubmit}>submit</button>
+         {/*<MainLayout state={state} setState={setState} />*/}
+      </div>
+   );
 }
 
 export default App;
