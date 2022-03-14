@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faGlobe, faPhoneAlt, faSearch, faShoppingCart, faUser} from "@fortawesome/free-solid-svg-icons";
 import zonLogo from '../../assets/icons/zon.png';
 import Wrapper from "../UI/Wrapper";
+import Menu from "./Menu";
 
 function MainLayout() {
 
@@ -12,7 +13,7 @@ function MainLayout() {
          <Wrapper>
             <div className={style.container}>
                <ul>
-                  <li><FontAwesomeIcon icon={faBars} color={"#011C47"} size={"lg"}/></li>
+                  <Menu />
                   <li><img src={zonLogo} alt="zon logo"/></li>
                   <li>
                      <div className={style.input}>
