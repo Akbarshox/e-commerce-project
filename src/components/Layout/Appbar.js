@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import {styled, alpha} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,8 +9,11 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {Store} from "../../Store";
+import CartDrawer from "../Product/CartDrawer";
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({theme}) => ({
    position: 'relative',
    borderRadius: theme.shape.borderRadius,
    backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -25,7 +28,7 @@ const Search = styled('div')(({ theme }) => ({
    },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({theme}) => ({
    padding: theme.spacing(0, 2),
    height: '100%',
    position: 'absolute',
@@ -35,7 +38,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
    justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({theme}) => ({
    color: 'inherit',
    '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
@@ -53,8 +56,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Appbar() {
+   const {state, dispatch} = useContext(Store);
+
+   console.log(state);
    return (
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{flexGrow: 1}}>
          <AppBar position="static">
             <Toolbar>
                <IconButton
@@ -62,26 +68,27 @@ export default function Appbar() {
                   edge="start"
                   color="inherit"
                   aria-label="open drawer"
-                  sx={{ mr: 2 }}
+                  sx={{mr: 2}}
                >
-                  <MenuIcon />
+                  <MenuIcon/>
                </IconButton>
                <Typography
                   variant="h6"
                   noWrap
                   component="div"
-                  sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                  sx={{flexGrow: 1, display: {xs: 'none', sm: 'block'}}}
                   className="whiteColor"
                >
                   <Link to={"/"}>Online store</Link>
                </Typography>
+               <CartDrawer/>
                <Search>
                   <SearchIconWrapper>
-                     <SearchIcon />
+                     <SearchIcon/>
                   </SearchIconWrapper>
                   <StyledInputBase
                      placeholder="Search…"
-                     inputProps={{ 'aria-label': 'search' }}
+                     inputProps={{'aria-label': 'search'}}
                   />
                </Search>
             </Toolbar>

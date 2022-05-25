@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import style from '../../styles/product.module.css';
 import Grid from "@mui/material/Grid";
 import ReactImageMagnify from 'react-image-magnify';
 import CircularProgress from "@mui/material/CircularProgress";
-import {useSelector} from "react-redux";
+import {Store} from "../../Store";
 
 export default function Product() {
+   const {state, dispatch} = useContext(Store);
    const [data, setData] = useState({});
    const [loading, setLoading] = useState(true);
    const params = useParams();
-   const state = useSelector(state => state);
 
    useEffect(() => {
       axios.get(`https://fakestoreapi.com/products/${params.id}`)
@@ -20,6 +20,10 @@ export default function Product() {
             setLoading(false);
          })
    }, [])
+
+   const addToCart = (data) => {
+      dispatch({type: 'ADD_TO_CART', payload: Object.assign({amount: 1}, data)});
+   }
 
    console.log(state);
    if (!loading)
@@ -54,7 +58,7 @@ export default function Product() {
                      <p>{data.description}</p>
                      <hr/>
                      <div className={style.buy}>
-                        <button>Купить</button>
+                        <button onClick={() => addToCart(data)}>Купить</button>
                      </div>
                   </div>
                </Grid>
